@@ -1,91 +1,92 @@
 #include <iostream>
+#include <fstream>
 
 using namespace std;
-/* Function to merge the two haves arr[l..m] and arr[m+1..r] of array arr[] */
-void merge(char arr[], int l, int m, int r)
+
+ofstream fout;
+
+void printArray(char array[], int size)
+{
+   for (int i=0; i < size; i++) {
+     cout << array[i] << " ";
+     fout << array[i] << " ";
+   }
+   cout << endl;
+   fout << endl;
+}
+
+// Function to merge the two haves arr[l..m] and arr[m+1..r] of array arr[]
+void merge(char array[], int left, int mid, int right)
 {
     int i, j, k;
-    int n1 = m - l + 1;
-    int n2 =  r - m;
+    int n1 = mid - left + 1;
+    int n2 =  right - mid;
 
-    /* create temp arrays */
-    int L[n1], R[n2];
+    char LeftArray[n1];
+    char RightArray[n2];
 
-    /* Copy data to temp arrays L[] and R[] */
     for (i = 0; i < n1; i++)
-        L[i] = arr[l + i];
+        LeftArray[i] = array[left + i];
     for (j = 0; j < n2; j++)
-        R[j] = arr[m + 1+ j];
+        RightArray[j] = array[mid + 1+ j];
 
-    /* Merge the temp arrays back into arr[l..r]*/
     i = 0;
     j = 0;
-    k = l;
+    k = left;
     while (i < n1 && j < n2)
     {
-        if (L[i] <= R[j])
+        if (LeftArray[i] <= RightArray[j])
         {
-            arr[k] = L[i];
+            array[k] = LeftArray[i];
             i++;
         }
         else
         {
-            arr[k] = R[j];
+            array[k] = RightArray[j];
             j++;
         }
         k++;
     }
 
-    /* Copy the remaining elements of L[], if there are any */
     while (i < n1)
     {
-        arr[k] = L[i];
+        array[k] = LeftArray[i];
         i++;
         k++;
     }
 
-    /* Copy the remaining elements of R[], if there are any */
     while (j < n2)
     {
-        arr[k] = R[j];
+        array[k] = RightArray[j];
         j++;
         k++;
     }
+    cout << "Right Array: ";
+    fout << "Right Array: ";
+    printArray(RightArray, n2);
+    cout << "Left Array: ";
+    fout << "Left Array: ";
+    printArray(LeftArray, n1);
+    cout << endl;
+    fout << endl;
 }
 
-/* Function to print an array */
-void printArray(char A[], int size)
+// Iterative mergesort function
+void mergeSort(char array[], int n)
 {
-   for (int i=0; i < size; i++) {
-     cout << A[i] << " ";
-   }
-   cout << endl;
-}
+   int size;
+   int left;
 
-/* Iterative mergesort function to sort arr[0...n-1] */
-void mergeSort(char arr[], int n)
-{
-   int curr_size;  // For current size of subarrays to be merged
-                   // curr_size varies from 1 to n/2
-   int left_start; // For picking starting index of left subarray
-                   // to be merged
-
-   // Merge subarrays in bottom up manner.  First merge subarrays of
-   // size 1 to create sorted subarrays of size 2, then merge subarrays
-   // of size 2 to create sorted subarrays of size 4, and so on.
-   for (curr_size=1; curr_size<=n-1; curr_size = 2*curr_size)
+   for (size = 1; size < n; size = 2 * size)
    {
-       // Pick starting point of different subarrays of current size
-       for (left_start=0; left_start<n-1; left_start += 2*curr_size)
+       for (left = 0; left < n-1; left += 2 * size)
        {
-           // Find ending point of left subarray. mid+1 is starting
-           // point of right
-           int mid = left_start + curr_size - 1;
 
-           int right_end = min(left_start + 2*curr_size - 1, n-1);
+           int mid = left + size - 1;
 
-           // Merge Subarrays arr[left_start...mid] & arr[mid+1...right_end]
-           merge(arr, left_start, mid, right_end);
+           int right = min(left + 2 * size - 1, n-1);
+
+           merge(array, left, mid, right);
        }
    }
 }
@@ -102,6 +103,7 @@ int main(int argc, char const *argv[]) {
   for (int i = 0; i < n; i++) {
     cin >> array[i];
   }
+  fout.open("mergeSortLog.txt");
   mergeSort(array, n);
   printArray(array, n);
   return 0;
