@@ -66,15 +66,6 @@ void bubbleSort(char array[], int n) {
   }
 }
 
-void readArray (char array[], int n) {
-  cout << "Enter Array: ";
-  for (int i = 0; i < n; i++) {
-    cin >> array[i];
-  }
-  printWorkedArray(array, n, 0, 0);
-  bubbleSort(array, n);
-}
-
 int main(int argc, char const *argv[]) {
   int n;
 
