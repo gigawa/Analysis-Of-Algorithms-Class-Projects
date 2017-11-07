@@ -1,0 +1,43 @@
+Right Array: S 
+Left Array: A 
+
+Right Array: R 
+Left Array: O 
+
+Right Array: I 
+Left Array: T 
+
+Right Array: G 
+Left Array: N 
+
+Right Array: X 
+Left Array: E 
+
+Right Array: M 
+Left Array: A 
+
+Right Array: L 
+Left Array: P 
+
+Right Array: O R 
+Left Array: A S 
+
+Right Array: G N 
+Left Array: I T 
+
+Right Array: A M 
+Left Array: E X 
+
+Right Array: E 
+Left Array: L P 
+
+Right Array: G I N T 
+Left Array: A O R S 
+
+Right Array: E L P 
+Left Array: A E M X 
+
+Right Array: A E E L M P X 
+Left Array: A G I N O R S T 
+
+A A E E G I L M N O P R S T X 
